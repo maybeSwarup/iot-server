@@ -5,8 +5,8 @@ import { objectId } from '../validate';
 const createDeviceBody: Record<keyof NewCreatedDevice, any> = {
   uid: Joi.string().required(),
   name: Joi.string().required(),
-  temprature: Joi.number(),
-  humidity: Joi.number(),
+  temprature: Joi.number().optional(),
+  humidity: Joi.number().optional(),
 };
 
 export const createDevice = {

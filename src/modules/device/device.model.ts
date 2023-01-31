@@ -13,14 +13,8 @@ const deviceSchema = new mongoose.Schema<IDeviceDoc, IDeviceModel>(
       type: String,
       required: true,
     },
-    temprature: {
-      type: Number,
-      required: true,
-    },
-    humidity: {
-      type: Number,
-      required: true,
-    },
+    temprature: Number,
+    humidity: Number,
   },
   {
     timestamps: true,
