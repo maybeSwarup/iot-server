@@ -16,4 +16,9 @@ router
   .patch(auth('manageDevices'), validate(deviceValidation.updateDevice), deviceController.updateDevice)
   .delete(auth('manageDevices'), validate(deviceValidation.deleteDevice), deviceController.deleteDevice);
 
+router
+  .route('/:deviceUid/readings/:parameter')
+  .get(auth('getDevices'), validate(deviceValidation.getReadings), deviceController.getReadings)
+  .put(auth('manageDevices'), validate(deviceValidation.putReading), deviceController.putReading);
+
 export default router;

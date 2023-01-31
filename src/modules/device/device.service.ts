@@ -1,6 +1,6 @@
 import httpStatus from 'http-status';
 import { IOptions, QueryResult } from '../paginate/paginate';
-import { IDeviceDoc, NewCreatedDevice, UpdateDeviceBody } from './device.interfaces';
+import { IDeviceDoc, IHumidity, NewCreatedDevice, UpdateDeviceBody } from './device.interfaces';
 import Device from './device.model';
 import { ApiError } from '../errors';
 
@@ -64,5 +64,60 @@ export const deleteDeviceById = async (deviceUid: string): Promise<IDeviceDoc | 
   }
 
   await device.remove();
+  return device;
+};
+
+/**
+ * Query for readings
+ * @param {Object} filter - Mongo filter
+ * @param {Object} options - Query options
+ * @returns {Promise<QueryResult>}
+ */
+export const queryReadings = async (
+  deviceUid: string,
+  parameter: string,
+  filter: Record<string, any>,
+  options: IOptions
+): Promise<any> => {
+  const device = await getDeviceById(deviceUid);
+  if (!device) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Device not found');
+  }
+
+  const readings = await Device.find(
+    {
+      _id: device._id,
+      [parameter]: { createdOn: { $gte: filter['start_on'], $lte: filter['end_on'] } },
+    },
+    parameter,
+    options
+  );
+  // [parameter].paginate(
+  //   { createdOn: { $gte: filter['start_on'], $lte: filter['end_on'] } },
+  //   options
+  // );
+
+  return readings;
+};
+
+/**
+ * Update Device by id
+ * @param {string} deviceUid
+ * @param {UpdateDeviceBody} updateBody
+ * @returns {Promise<IDeviceDoc | null>}
+ */
+export const putReading = async (
+  deviceUid: string,
+  parameter: string,
+  updateBody: IHumidity
+): Promise<IDeviceDoc | null> => {
+  const device = await getDeviceById(deviceUid);
+  if (!device) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Device not found');
+  }
+
+  device[parameter].push({ reading: updateBody.reading });
+
+  await device.save();
   return device;
 };

@@ -4,8 +4,8 @@ import { NewCreatedDevice } from './device.interfaces';
 const createDeviceBody: Record<keyof NewCreatedDevice, any> = {
   uid: Joi.string().required(),
   name: Joi.string().required(),
-  temprature: Joi.number().optional(),
-  humidity: Joi.number().optional(),
+  temprature: Joi.array().items(Joi.number()).optional(),
+  humidity: Joi.array().items(Joi.number()).optional(),
 };
 
 export const createDevice = {
@@ -17,8 +17,8 @@ export const getDevices = {
     // filter
     uid: Joi.string(),
     name: Joi.string(),
-    temprature: Joi.number(),
-    humidity: Joi.number(),
+    temprature: Joi.array().items(Joi.number()),
+    humidity: Joi.array().items(Joi.number()),
 
     // options
     sortBy: Joi.string(),
@@ -51,5 +51,22 @@ export const updateDevice = {
 export const deleteDevice = {
   params: Joi.object().keys({
     deviceUid: Joi.string(),
+  }),
+};
+
+export const getReadings = {
+  params: Joi.object().keys({
+    deviceUid: Joi.string(),
+    parameter: Joi.string().required(),
+  }),
+};
+
+export const putReading = {
+  params: Joi.object().keys({
+    deviceUid: Joi.string(),
+    parameter: Joi.string().required(),
+  }),
+  body: Joi.object().keys({
+    reading: Joi.number().required(),
   }),
 };

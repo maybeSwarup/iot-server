@@ -1,11 +1,17 @@
 import { Document, Model } from 'mongoose';
 import { QueryResult } from '../paginate/paginate';
 
+export interface ITemprature {
+  reading: number;
+}
+
+export interface IHumidity extends ITemprature {}
+
 export interface IDevice {
   uid: string;
   name: string;
-  temprature: number;
-  humidity: number;
+  temprature: Array<ITemprature>;
+  humidity: Array<IHumidity>;
 }
 
 export interface IDeviceDoc extends IDevice, Document {}

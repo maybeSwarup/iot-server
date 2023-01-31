@@ -3,6 +3,24 @@ import { IDeviceDoc, IDeviceModel } from './device.interfaces';
 import { toJSON } from '../toJSON';
 import { paginate } from '../paginate';
 
+const tempratureSchema = new mongoose.Schema(
+  {
+    reading: Number,
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const humiditySchema = new mongoose.Schema(
+  {
+    reading: Number,
+  },
+  {
+    timestamps: true,
+  }
+);
+
 const deviceSchema = new mongoose.Schema<IDeviceDoc, IDeviceModel>(
   {
     uid: {
@@ -14,8 +32,8 @@ const deviceSchema = new mongoose.Schema<IDeviceDoc, IDeviceModel>(
       type: String,
       required: true,
     },
-    temprature: Number,
-    humidity: Number,
+    temprature: [tempratureSchema],
+    humidity: [humiditySchema],
   },
   {
     timestamps: true,
