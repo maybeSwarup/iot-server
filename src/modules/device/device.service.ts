@@ -42,7 +42,10 @@ export const getDeviceById = async (id: mongoose.Types.ObjectId): Promise<IDevic
  * @param {UpdateDeviceBody} updateBody
  * @returns {Promise<IDeviceDoc | null>}
  */
-export const updateDeviceById = async (DeviceId: mongoose.Types.ObjectId, updateBody: UpdateDeviceBody): Promise<IDeviceDoc | null> => {
+export const updateDeviceById = async (
+  DeviceId: mongoose.Types.ObjectId,
+  updateBody: UpdateDeviceBody
+): Promise<IDeviceDoc | null> => {
   const device = await getDeviceById(DeviceId);
   if (!device) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Device not found');

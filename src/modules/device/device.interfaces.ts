@@ -2,13 +2,10 @@ import { Document, Model, ObjectId } from 'mongoose';
 import { QueryResult } from '../paginate/paginate';
 
 export interface IDevice {
-  title: string;
-  description: string;
-  email: string;
-  skills: Array<string>;
-  experience: number;
-  postedById: ObjectId;
-  applicantIds: Array<ObjectId>;
+  uid: string;
+  name: string;
+  temprature: number;
+  humidity: number;
 }
 
 export interface IDeviceDoc extends IDevice, Document {}
