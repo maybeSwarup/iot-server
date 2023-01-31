@@ -5,8 +5,8 @@ import { objectId } from '../validate';
 const createDeviceBody: Record<keyof NewCreatedDevice, any> = {
   uid: Joi.string().required(),
   name: Joi.string().required(),
-  temprature: Joi.string(),
-  humidity: Joi.string(),
+  temprature: Joi.number(),
+  humidity: Joi.number(),
 };
 
 export const createDevice = {
@@ -18,8 +18,8 @@ export const getDevices = {
     // filter
     uid: Joi.string(),
     name: Joi.string(),
-    temprature: Joi.string(),
-    humidity: Joi.string(),
+    temprature: Joi.number(),
+    humidity: Joi.number(),
 
     // options
     sortBy: Joi.string(),
@@ -43,8 +43,8 @@ export const updateDevice = {
     .keys({
       uid: Joi.string(),
       name: Joi.string(),
-      temprature: Joi.string(),
-      humidity: Joi.string(),
+      temprature: Joi.number(),
+      humidity: Joi.number(),
     })
     .min(1),
 };
