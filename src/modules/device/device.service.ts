@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import httpStatus from 'http-status';
 import { IOptions, QueryResult } from '../paginate/paginate';
 import { IDeviceDoc, NewCreatedDevice, UpdateDeviceBody } from './device.interfaces';
@@ -21,32 +20,28 @@ export async function createDevice(deviceBody: NewCreatedDevice): Promise<IDevic
  * @returns {Promise<QueryResult>}
  */
 export const queryDevices = async (filter: Record<string, any>, options: IOptions): Promise<QueryResult> => {
-  if (filter['skills']) {
-    const skills = filter['skills'].split(',');
-    Object.assign(filter, { skills: { $in: skills } });
-  }
   const devices = await Device.paginate(filter, options);
   return devices;
 };
 
 /**
  * Get Device by id
- * @param {mongoose.Types.ObjectId} id
+ * @param {IDeviceDoc.uid} uid
  * @returns {Promise<IDeviceDoc | null>}
  */
-export const getDeviceById = async (id: mongoose.Types.ObjectId): Promise<IDeviceDoc | null> => Device.findById(id);
+export const getDeviceById = async (uid: string): Promise<any | null> => {
+  const devices: any = await Device.find({ uid }).limit(1);
+  return devices[0];
+};
 
 /**
  * Update Device by id
- * @param {mongoose.Types.ObjectId} DeviceId
+ * @param {string} deviceUid
  * @param {UpdateDeviceBody} updateBody
  * @returns {Promise<IDeviceDoc | null>}
  */
-export const updateDeviceById = async (
-  DeviceId: mongoose.Types.ObjectId,
-  updateBody: UpdateDeviceBody
-): Promise<IDeviceDoc | null> => {
-  const device = await getDeviceById(DeviceId);
+export const updateDeviceById = async (deviceUid: string, updateBody: UpdateDeviceBody): Promise<IDeviceDoc | null> => {
+  const device = await getDeviceById(deviceUid);
   if (!device) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Device not found');
   }
@@ -59,14 +54,15 @@ export const updateDeviceById = async (
 
 /**
  * Delete Device by id
- * @param {mongoose.Types.ObjectId} DeviceId
+ * @param {string} deviceUid
  * @returns {Promise<IDeviceDoc | null>}
  */
-export const deleteDeviceById = async (DeviceId: mongoose.Types.ObjectId): Promise<IDeviceDoc | null> => {
-  const device = await getDeviceById(DeviceId);
+export const deleteDeviceById = async (deviceUid: string): Promise<IDeviceDoc | null> => {
+  const device = await getDeviceById(deviceUid);
   if (!device) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Device not found');
   }
+
   await device.remove();
   return device;
 };

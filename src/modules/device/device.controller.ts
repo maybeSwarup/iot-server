@@ -1,5 +1,4 @@
 import httpStatus from 'http-status';
-import mongoose from 'mongoose';
 import { catchAsync, pick } from '../utils';
 import * as deviceService from './device.service';
 import { ApiError } from '../errors';
@@ -18,8 +17,8 @@ export const getDevices = catchAsync(async (req: Request | any, res: Response | 
 });
 
 export const getDevice = catchAsync(async (req: Request | any, res: Response | any) => {
-  if (typeof req.params.DeviceId === 'string') {
-    const device = await deviceService.getDeviceById(new mongoose.Types.ObjectId(req.params.DeviceId));
+  if (typeof req.params.deviceUid === 'string') {
+    const device = await deviceService.getDeviceById(req.params.deviceUid);
     if (!device) {
       throw new ApiError(httpStatus.NOT_FOUND, 'Device not found');
     }
@@ -28,15 +27,15 @@ export const getDevice = catchAsync(async (req: Request | any, res: Response | a
 });
 
 export const updateDevice = catchAsync(async (req: Request | any, res: Response | any) => {
-  if (typeof req.params.DeviceId === 'string') {
-    const device = await deviceService.updateDeviceById(new mongoose.Types.ObjectId(req.params.DeviceId), req.body);
+  if (typeof req.params.deviceUid === 'string') {
+    const device = await deviceService.updateDeviceById(req.params.deviceUid, req.body);
     res.send(device);
   }
 });
 
 export const deleteDevice = catchAsync(async (req: Request | any, res: Response | any) => {
-  if (typeof req.params.DeviceId === 'string') {
-    await deviceService.deleteDeviceById(new mongoose.Types.ObjectId(req.params.DeviceId));
+  if (typeof req.params.deviceUid === 'string') {
+    await deviceService.deleteDeviceById(req.params.deviceUid);
     res.status(httpStatus.NO_CONTENT).send();
   }
 });

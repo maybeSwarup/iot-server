@@ -11,7 +11,7 @@ router
   .get(auth('getDevices'), validate(deviceValidation.getDevices), deviceController.getDevices);
 
 router
-  .route('/:DeviceId')
+  .route('/:deviceUid')
   .get(auth('getDevices'), validate(deviceValidation.getDevice), deviceController.getDevice)
   .patch(auth('manageDevices'), validate(deviceValidation.updateDevice), deviceController.updateDevice)
   .delete(auth('manageDevices'), validate(deviceValidation.deleteDevice), deviceController.deleteDevice);

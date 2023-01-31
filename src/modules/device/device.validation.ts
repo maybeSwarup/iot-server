@@ -1,6 +1,5 @@
 import Joi from 'joi';
 import { NewCreatedDevice } from './device.interfaces';
-import { objectId } from '../validate';
 
 const createDeviceBody: Record<keyof NewCreatedDevice, any> = {
   uid: Joi.string().required(),
@@ -31,13 +30,13 @@ export const getDevices = {
 
 export const getDevice = {
   params: Joi.object().keys({
-    DeviceId: Joi.string().custom(objectId),
+    deviceUid: Joi.string(),
   }),
 };
 
 export const updateDevice = {
   params: Joi.object().keys({
-    DeviceId: Joi.required().custom(objectId),
+    deviceUid: Joi.required(),
   }),
   body: Joi.object()
     .keys({
@@ -51,6 +50,6 @@ export const updateDevice = {
 
 export const deleteDevice = {
   params: Joi.object().keys({
-    DeviceId: Joi.string().custom(objectId),
+    deviceUid: Joi.string(),
   }),
 };
