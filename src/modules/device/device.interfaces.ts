@@ -1,4 +1,4 @@
-import { Document, Model, ObjectId } from 'mongoose';
+import { Document, Model } from 'mongoose';
 import { QueryResult } from '../paginate/paginate';
 
 export interface IDevice {
@@ -14,8 +14,6 @@ export interface IDeviceModel extends Model<IDeviceDoc, Document> {
   paginate(filter: Record<string, any>, options: Record<string, any>): Promise<QueryResult>;
 }
 
-export interface UpdateDeviceBody extends Partial<IDevice> {
-  applicantId: ObjectId;
-}
+export interface UpdateDeviceBody extends Partial<IDevice> {}
 
 export type NewCreatedDevice = Partial<IDevice>;

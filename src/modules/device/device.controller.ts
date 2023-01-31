@@ -18,8 +18,8 @@ export const getDevices = catchAsync(async (req: Request | any, res: Response | 
 });
 
 export const getDevice = catchAsync(async (req: Request | any, res: Response | any) => {
-  if (typeof req.params.deviceId === 'string') {
-    const device = await deviceService.getDeviceById(new mongoose.Types.ObjectId(req.params.deviceId));
+  if (typeof req.params.DeviceId === 'string') {
+    const device = await deviceService.getDeviceById(new mongoose.Types.ObjectId(req.params.DeviceId));
     if (!device) {
       throw new ApiError(httpStatus.NOT_FOUND, 'Device not found');
     }

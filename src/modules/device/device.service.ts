@@ -51,7 +51,7 @@ export const updateDeviceById = async (
     throw new ApiError(httpStatus.NOT_FOUND, 'Device not found');
   }
 
-  Object.assign(Device, updateBody);
+  Object.assign(device, updateBody);
 
   await device.save();
   return device;
