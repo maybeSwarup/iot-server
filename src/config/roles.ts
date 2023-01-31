@@ -1,4 +1,4 @@
-const user = ['getJobs', 'manageJobs'];
+const user = ['getDevices', 'manageDevices'];
 const admin = ['getUsers', 'manageUsers', ...user];
 
 const allRoles = { user, admin };

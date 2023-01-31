@@ -2,7 +2,7 @@ import express, { Router } from 'express';
 import authRoute from './auth.route';
 import docsRoute from './swagger.route';
 import userRoute from './user.route';
-import jobRoute from './device.route';
+import deviceRoute from './device.route';
 import config from '../../config/config';
 
 const router = express.Router();
@@ -22,8 +22,8 @@ const defaultIRoute: IRoute[] = [
     route: userRoute,
   },
   {
-    path: '/jobs',
-    route: jobRoute,
+    path: '/devices',
+    route: deviceRoute,
   },
 ];
 
