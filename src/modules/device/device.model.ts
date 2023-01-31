@@ -8,6 +8,7 @@ const deviceSchema = new mongoose.Schema<IDeviceDoc, IDeviceModel>(
     uid: {
       type: String,
       required: true,
+      unique: true,
     },
     name: {
       type: String,
