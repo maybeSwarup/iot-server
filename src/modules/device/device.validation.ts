@@ -1,8 +1,8 @@
 import Joi from 'joi';
-import { NewCreatedJob } from './job.interfaces';
+import { NewCreatedDevice } from './device.interfaces';
 import { objectId } from '../validate';
 
-const createJobBody: Record<keyof NewCreatedJob, any> = {
+const createDeviceBody: Record<keyof NewCreatedDevice, any> = {
   title: Joi.string().required(),
   description: Joi.string().required(),
   email: Joi.string().email().required(),
@@ -12,11 +12,11 @@ const createJobBody: Record<keyof NewCreatedJob, any> = {
   applicantIds: Joi.array().items(Joi.custom(objectId)).optional(),
 };
 
-export const createJob = {
-  body: Joi.object().keys(createJobBody),
+export const createDevice = {
+  body: Joi.object().keys(createDeviceBody),
 };
 
-export const getJobs = {
+export const getDevices = {
   query: Joi.object().keys({
     // filter
     title: Joi.string(),
@@ -36,15 +36,15 @@ export const getJobs = {
   }),
 };
 
-export const getJob = {
+export const getDevice = {
   params: Joi.object().keys({
-    JobId: Joi.string().custom(objectId),
+    DeviceId: Joi.string().custom(objectId),
   }),
 };
 
-export const updateJob = {
+export const updateDevice = {
   params: Joi.object().keys({
-    JobId: Joi.required().custom(objectId),
+    DeviceId: Joi.required().custom(objectId),
   }),
   body: Joi.object()
     .keys({
@@ -60,8 +60,8 @@ export const updateJob = {
     .min(1),
 };
 
-export const deleteJob = {
+export const deleteDevice = {
   params: Joi.object().keys({
-    JobId: Joi.string().custom(objectId),
+    DeviceId: Joi.string().custom(objectId),
   }),
 };

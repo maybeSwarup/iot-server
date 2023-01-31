@@ -1,7 +1,7 @@
 import { Document, Model, ObjectId } from 'mongoose';
 import { QueryResult } from '../paginate/paginate';
 
-export interface IJob {
+export interface IDevice {
   title: string;
   description: string;
   email: string;
@@ -11,14 +11,14 @@ export interface IJob {
   applicantIds: Array<ObjectId>;
 }
 
-export interface IJobDoc extends IJob, Document {}
+export interface IDeviceDoc extends IDevice, Document {}
 
-export interface IJobModel extends Model<IJobDoc, Document> {
+export interface IDeviceModel extends Model<IDeviceDoc, Document> {
   paginate(filter: Record<string, any>, options: Record<string, any>): Promise<QueryResult>;
 }
 
-export interface UpdateJobBody extends Partial<IJob> {
+export interface UpdateDeviceBody extends Partial<IDevice> {
   applicantId: ObjectId;
 }
 
-export type NewCreatedJob = Partial<IJob>;
+export type NewCreatedDevice = Partial<IDevice>;

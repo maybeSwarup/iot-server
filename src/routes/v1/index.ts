@@ -2,7 +2,7 @@ import express, { Router } from 'express';
 import authRoute from './auth.route';
 import docsRoute from './swagger.route';
 import userRoute from './user.route';
-import jobRoute from './job.route';
+import jobRoute from './device.route';
 import config from '../../config/config';
 
 const router = express.Router();

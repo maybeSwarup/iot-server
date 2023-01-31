@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
-import { IJobDoc, IJobModel } from './job.interfaces';
+import { IDeviceDoc, IDeviceModel } from './device.interfaces';
 import { toJSON } from '../toJSON';
 import { paginate } from '../paginate';
 
-const jobSchema = new mongoose.Schema<IJobDoc, IJobModel>(
+const deviceSchema = new mongoose.Schema<IDeviceDoc, IDeviceModel>(
   {
     title: {
       type: String,
@@ -34,9 +34,9 @@ const jobSchema = new mongoose.Schema<IJobDoc, IJobModel>(
   }
 );
 
-jobSchema.plugin(toJSON);
-jobSchema.plugin(paginate);
+deviceSchema.plugin(toJSON);
+deviceSchema.plugin(paginate);
 
-const Job = mongoose.model<IJobDoc, IJobModel>('Job', jobSchema);
+const Device = mongoose.model<IDeviceDoc, IDeviceModel>('Device', deviceSchema);
 
-export default Job;
+export default Device;

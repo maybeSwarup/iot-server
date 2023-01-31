@@ -4,7 +4,6 @@ import User from './user.model';
 import ApiError from '../errors/ApiError';
 import { IOptions, QueryResult } from '../paginate/paginate';
 import { NewCreatedUser, UpdateUserBody, IUserDoc, NewRegisteredUser } from './user.interfaces';
-import { jobService } from '../job';
 
 /**
  * Create a user
@@ -37,13 +36,6 @@ export const registerUser = async (userBody: NewRegisteredUser): Promise<IUserDo
  * @returns {Promise<QueryResult>}
  */
 export const queryUsers = async (filter: Record<string, any>, options: IOptions): Promise<QueryResult> => {
-  if (filter['jobId']) {
-    const job = await jobService.getJobById(filter['jobId']);
-    if (job) {
-      const userIds = job.applicantIds;
-      Object.assign(filter, { _id: { $in: userIds } });
-    }
-  }
   const users = await User.paginate(filter, options);
   return users;
 };
